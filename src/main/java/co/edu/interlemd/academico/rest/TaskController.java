@@ -12,31 +12,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.interlemd.academico.repositorio.MateriaRepositorio;
-import entidades.Materia;
+import co.edu.interlemd.academico.repositorio.TaskRepositorio;
+import entidades.Task;
 
 @RestController
-public class MateriaController {
+public class TaskController {
 
-    private MateriaRepositorio repositorio = new MateriaRepositorio();
+    private TaskRepositorio repositorio = new TaskRepositorio();
 
-    @GetMapping("/api/materia/prueba")
+    @GetMapping("/api/Task/prueba")
     public String prueba(@RequestParam(value = "name", defaultValue = "World") String name) {
-        Materia materia = new Materia(0, "Matematicas", 1322564, 2);
+        Task task = new Task(0, "Matematicas", 1322564, 2);
 
-        repositorio.crear(materia);
+        repositorio.crear(task);
         return String.format("Hello %s!", name);
 
     }
 
-    @GetMapping(path = "/api/materias", produces = "application/json")
-    public List<Materia> getTodos() {
+    @GetMapping(path = "/api/Tasks", produces = "application/json")
+    public List<Task> getTodos() {
         return repositorio.leerTodos();
     }
 
-    @PostMapping(path = "/api/materias", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Materia> create(@RequestBody Materia newMateria) {
-        Materia materiaNueva = newMateria;
+    @PostMapping(path = "/api/Tasks", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Task> create(@RequestBody Task newMateria) {
+        Task materiaNueva = newMateria;
         repositorio.crear(materiaNueva);
 
         if (materiaNueva == null) {
@@ -46,11 +46,11 @@ public class MateriaController {
         }
     }
 
-    @PutMapping(path = "/api/materias",
+    @PutMapping(path = "/api/Tasks",
      consumes = MediaType.APPLICATION_JSON_VALUE, 
      produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Materia> update(@RequestBody Materia newMateria) {
-        Materia materiaNueva = newMateria;
+    public ResponseEntity<Task> update(@RequestBody Task newMateria) {
+        Task materiaNueva = newMateria;
         repositorio.actualizar(materiaNueva);
 
         if (materiaNueva == null) {
